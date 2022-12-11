@@ -33,4 +33,18 @@ const readAndAppend = (content, file) => {
     });
 };
 
-module.exports = { readFromFile, writeToFile, readAndAppend }
+/**
+ *  Function to delete data from a given file
+ *  @param {string} id The note you want to delete from the file.
+ *  @param {string} file The path to the file you want to delete from.
+ *  @return {void} Returns nothing.
+ */
+const deleteAndUpdate = (id, file) => {
+    readFromFile('./db/db.json').then((data) => {
+        const existingNotes = JSON.parse(data);
+        const filteredNotes = existingNotes.filter(note => note.id != id);
+        writeToFile(file, filteredNotes);
+    });
+};
+
+module.exports = { readFromFile, writeToFile, readAndAppend, deleteAndUpdate }
